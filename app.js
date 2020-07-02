@@ -113,7 +113,7 @@ app.delete('/api/heroes/:HeroId',(req,res)=>{
 
 //let indexOfHero = heroArray.findIndex(hero);
 heroArray.splice(DeleteHeroID, 1);
-//console.log(heroArray);
+console.log(heroArray);
 res.send(hero);
 });
 
