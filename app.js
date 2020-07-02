@@ -108,11 +108,13 @@ app.put('/api/heroes/:HeroId',(req,res)=>{
     if(!hero){
 
         return res.status(404).send("This is not our server!");
-      }
+      
+    }
       if(!req.body.heroName)
       {   
        return res.status(400).send("Error of hero name ");
       
+
       }
 
       hero.name = req.body.heroName;
@@ -123,15 +125,15 @@ app.put('/api/heroes/:HeroId',(req,res)=>{
 
 app.delete('/api/heroes/:HeroId',(req,res)=>{
     let HeroId = parseInt(req.params.HeroId);
-   let DeleteHeroID = HeroId-1;
+  // let DeleteHeroID = HeroId-1;
     let hero = heroArray.find(h=> h.id === HeroId);
     if(!hero){
 
-      return res.status(404).send("This is not our server!");
+      return res.status(404).send("This is not our server! ");
       }
 
-//let indexOfHero = heroArray.findIndex(hero);
-heroArray.splice(DeleteHeroID, 1);
+let indexOfHero = heroArray.indexOf(hero);
+heroArray.splice(indexOfHero, 1);
 console.log(heroArray);
 res.send(hero);
 });
