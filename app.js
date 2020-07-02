@@ -1,5 +1,6 @@
 const express = require('express');
-
+const authenticater = require('./middleware/authenticater');
+const emailLog = require('./middleware/emialsAuth');
 const app = express();
 const port =5000;
 
@@ -31,6 +32,24 @@ app.get("/third", (req,res)=>{
 
  */
 app.use(express.json());
+
+app.use(authenticater);
+
+app.use(emailLog);
+
+app.use((req,res, next) =>{
+
+console.log("Hii");
+next();
+});
+
+app.use((req,res, next ) =>{
+
+    console.log("Hii new one");
+    next();
+    });
+
+
 
 
 let heroArray =[{id:1 ,name:'IronMan'},{id:2 ,name:'SupperMan'},{id:3 ,name:'BatMan'}];
