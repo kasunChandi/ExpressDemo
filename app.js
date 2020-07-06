@@ -39,9 +39,10 @@ app.use(emailLog);
 
 app.use((req,res, next) =>{
 
-console.log("Hii");
+console.log("Hii every one");
 next();
 });
+
 
 app.use((req,res, next ) =>{
 
