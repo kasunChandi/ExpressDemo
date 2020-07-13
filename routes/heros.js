@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const Hero = require('../models/hero')
 
 
 let heroArray =[
@@ -11,17 +11,23 @@ let heroArray =[
 
 
 
-router.get('/',(req,res)=>{
+router.get('/',async(req,res)=>{
     // let heroes =['iron-man','supper-man','bat-man'];
-     res.send(heroArray);
+   //  res.send(heroArray);
+
+     let heros = await Hero.find();
+     res.send(heros);
+
   });
   
-  router.get('/:HeroId',(req, res)=>{ 
-  
+  router.get('/:HeroId',async(req, res)=>{ 
+  /*
      let HeroId = req.params.HeroId;
     // let optionalVal =req.query.showMore;
     let hero = heroArray.find(h=> h.id == HeroId);
-  
+  */
+
+  let hero =await Hero.findById(req.params.HeroId)
     if(!hero){
   
       res.status(404).send("This is not our server!");
@@ -34,21 +40,41 @@ router.get('/',(req,res)=>{
   });
   
   
-  router.post('/',(req,res)=>{ 
+  router.post('/',async(req,res)=>{ 
       
   
       if(!req.body.heroName){   
    return res.status(400).send("Error of hero name ");
   
   }
-  
+try{
+    let heroTobeAddToDb = new Hero({
+     name: req.body.heroName,
+     birthname: req.body.birthname,
+     movies: req.body.moviesName,
+     likeCount:req.body.likeCount,
+     imgUrl:req.body.imgUrl,
+     deceased: req.body.deceased
+
+
+
+});
+
+      heroTobeAddToDb = await heroTobeAddToDb.save();
+      console.log(heroTobeAddToDb);
+      res.send(heroTobeAddToDb);
+}
+catch(e){
+  return res.status(500).send(e.message);
+}
+  /*
       let newHero = {
           id:heroArray.length+1,
           name: req.body.heroName
       }
   heroArray.push(newHero);
-  console.log(heroArray);
-  res.send(newHero);
+  console.log(heroArray);  */
+  
   
   });
   

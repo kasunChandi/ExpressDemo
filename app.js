@@ -1,6 +1,7 @@
 const express = require('express');
 const homeHero = require('./routes/home')
 const heros = require('./routes/heros');
+const mongoose = require('mongoose');
 //const authenticater = require('./middleware/authenticater');
 //const emailLog = require('./middleware/emialsAuth');
 const app = express();
@@ -41,6 +42,10 @@ app.use(express.json());
 
 app.use('/api/heroes',heros);
 app.use('/',homeHero);
+mongoose
+.connect("mongodb://localhost/herodb",{useNewUrlParser:true , useUnifiedTopology: true})
+.then(()=>console.log("connetion is success"))
+.catch(err=> console.log("connection error ", err));
 
 /*
 app.use((req,res, next) =>{
