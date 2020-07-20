@@ -78,9 +78,13 @@ catch(e){
   
   });
   
-  router.put('/:HeroId',(req,res)=>{ 
-      let HeroId = req.params.HeroId;
+  router.put('/:HeroId',async(req,res)=>{ 
+     /* let HeroId = req.params.HeroId;
       let hero = heroArray.find(h=> h.id == HeroId);
+      */
+      let hero = await Hero.findById(req.params.HeroId);
+      
+
       if(!hero){
   
           return res.status(404).send("This is not our server!");
@@ -92,10 +96,15 @@ catch(e){
         
   
         }
-  
+         hero.set({name:req.body.heroName});
+         hero = await hero.save();
+         res.send(hero);
+
+  /*
         hero.name = req.body.heroName;
         console.log(heroArray);
         res.send(hero);
+        */
   
   });
   
