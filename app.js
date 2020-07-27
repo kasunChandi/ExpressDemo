@@ -2,6 +2,7 @@ const express = require('express');
 const homeHero = require('./routes/home')
 const heros = require('./routes/heros');
 const mongoose = require('mongoose');
+const cors = require('cors');
 //const authenticater = require('./middleware/authenticater');
 //const emailLog = require('./middleware/emialsAuth');
 const app = express();
@@ -39,7 +40,7 @@ app.use(express.json());
 //app.use(authenticater);
 
 //app.use(emailLog);
-
+app.use(cors());
 app.use('/api/heroes',heros);
 app.use('/',homeHero);
 mongoose
