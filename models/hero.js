@@ -7,13 +7,13 @@ const heroSchema = new mongoose.Schema ({
     name: {
       type :String,
       minlength : 4,
-      maxlength : 12,
+      maxlength : 25,
       required : true
     } ,
     birthname: String,
     movies: {
     type: [String],
-    enum:["endGame" , "Iron man2"]
+    enum:["endGame" , "Iron man2", "The First Avenger"]
     },
     likeCount:Number,
     imgUrl:{
