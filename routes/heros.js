@@ -82,23 +82,12 @@ catch(e){
      /* let HeroId = req.params.HeroId;
       let hero = heroArray.find(h=> h.id == HeroId);
       */
-      let hero = await Hero.findById(req.params.HeroId);
-      
-
-      if(!hero){
-  
-          return res.status(404).send("This is not our server!");
-        
-      }
-        if(!req.body.heroName)
-        {   
-         return res.status(400).send("Error of hero name ");
-        
-  
-        }
-         hero.set({name:req.body.heroName});
-         hero = await hero.save();
-         res.send(hero);
+       let hero = await Hero.findOneAndUpdate(
+        { _id: req.params.HeroId },
+        { $set: { likeCount: req.body.likeCount } },
+        { new: true, useFindAndModify: false }
+    );
+    res.send(hero);
 
   /*
         hero.name = req.body.heroName;
