@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const Hero = require('../models/hero')
 
-
+const JWTSECROT ="123645a";
 let heroArray =[
     {id:1 ,name:'IronMan'},
     {id:2 ,name:'SupperMan'},
@@ -42,6 +43,18 @@ router.get('/',async(req,res)=>{
   
   router.post('/',async(req,res)=>{ 
       
+    const token  = req.header("x-jwt-token");
+    if(!token){
+      return res.status(401).send("not access ");
+    }
+    try{
+      jwt.verify(token , JWTSECROT);
+    }
+    catch(e){
+    return res.status.send("invalide token");
+    
+    }
+
   
       if(!req.body.heroName){   
    return res.status(400).send("Error of hero name ");
@@ -101,6 +114,25 @@ catch(e){
      // let HeroId = parseInt(req.params.HeroId);
     // let DeleteHeroID = HeroId-1;
     //  let hero = heroArray.find(h=> h.id === HeroId);
+    const token  = req.header("x-jwt-token");
+    if(!token){
+      return res.status(401).send("not access ");
+    }
+    try{
+      jwt.verify(token , JWTSECROT);
+    }
+    catch(e){
+    return res.status.send("invalide token");
+    
+    }
+
+    let decode  = jwt.decode(token , JWTSECROT);
+    console.log(decode);
+    if(!decode.isAdmin){
+      return res.status(403).send("You are not authorist to delete");
+    }
+
+
 
     let hero = await Hero.findOneAndDelete({_id: req.params.HeroId});
       if(!hero){

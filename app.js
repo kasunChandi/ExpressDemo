@@ -1,5 +1,6 @@
 const express = require('express');
 const homeHero = require('./routes/home')
+const users = require('./routes/users');
 const heros = require('./routes/heros');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -43,6 +44,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/api/heroes',heros);
 app.use('/',homeHero);
+app.use('/api/login' , users);
 mongoose
 .connect("mongodb://localhost/herodb",{useNewUrlParser:true , useUnifiedTopology: true})
 .then(()=>console.log("connetion is success"))
