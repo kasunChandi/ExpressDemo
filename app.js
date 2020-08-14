@@ -7,7 +7,7 @@ const cors = require('cors');
 //const authenticater = require('./middleware/authenticater');
 //const emailLog = require('./middleware/emialsAuth');
 const app = express();
-const port =5000;
+const port =process.env.port || 5000;
 
 
 /*
@@ -46,7 +46,8 @@ app.use('/api/heroes',heros);
 app.use('/',homeHero);
 app.use('/api/login' , users);
 mongoose
-.connect("mongodb://localhost/herodb",{useNewUrlParser:true , useUnifiedTopology: true})
+.connect("mongodb+srv://user:user123@cluster0.s3e5l.mongodb.net/herodb?retryWrites=true&w=majority",
+{useNewUrlParser:true , useUnifiedTopology: true})
 .then(()=>console.log("connetion is success"))
 .catch(err=> console.log("connection error ", err));
 
