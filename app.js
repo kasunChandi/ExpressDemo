@@ -7,7 +7,7 @@ const cors = require('cors');
 //const authenticater = require('./middleware/authenticater');
 //const emailLog = require('./middleware/emialsAuth');
 const app = express();
-const port =process.env.port || 5000;
+const port = process.env.port || 5000;
 
 
 /*
